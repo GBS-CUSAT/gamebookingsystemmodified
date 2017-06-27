@@ -1,0 +1,86 @@
+<!DOCTYPE html>.
+<html lang="en">
+<head>
+  <title>Venue creation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+
+   
+</head>
+<body>
+<div class="main">
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      
+    </div>
+    <ul class="nav navbar-nav" >
+      
+      <li><a href="user-dashboard.php">Home</a></li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="contactus.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>   
+ 
+  
+</nav>
+<div class="row">
+<div class="container-fluid  text-align: center">    
+  
+<div class="col-sm-4 col-sm-offset-4">
+<div class="center-block"> 
+      <br/><b>Add A New Venue</b>
+      <form method="post" action="user-registration.php">
+      <input type="hidden" name="submitted" value="true">
+  <div class="form-group">
+    <br/>
+    Venue<input type="text" class="form-control" id="fname" value="first name" name="fname" onfocus="if(this.value=='first name'){ this.value='';}">
+  </div>
+  <div class="form-group">
+  </br>
+   max_duration<input type="text" class="form-control" id="md" value="max duration" name="md" onfocus="if(this.value=='max duration'){ this.value='';}">
+  </div>
+  <div class="form-group">
+  </br>
+    No. Of Players:<input type="number" text="center" class="form-control" id="pwd" value="" name="phone">
+  </div>
+ 
+  <div class="form-group">
+  </br>
+    Start Time:<input type="time" class="form-control" id="pwd" value="1" name="dob">
+  </div>
+   <div class="form-group">
+  </br>
+    End Time:<input type="time" class="form-control" id="pwd" value="9" name="dob">
+  </div>
+  <div class="checkbox">
+  </br>
+    <label><input type="checkbox" name="terms">Active</label>
+  </div>
+  <div class="form-group">
+  </br>
+   Image Path:<input type="text" class="form-control" id="md" value="image" name="md" onfocus="if(this.value=='max duration'){ this.value='';}">
+  </div>
+  <div class="form-group">
+  </br>
+   Description<input type="text" class="form-control" id="md" value="" name="md" onfocus="if(this.value=='max duration'){ this.value='';}">
+  </div>
+  <div class="form-group">
+  </br>
+  <button type="submit" class="btn btn-primary" style="">Add</button>
+  </div>
+  </form>
+
+    </div>
+	</div></div></div>
+	
+  
+
+
+</body>
+</html>

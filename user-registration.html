@@ -1,0 +1,222 @@
+<?php
+
+if (isset($_POST['submitted']) && isset($_POST['terms'])) {
+
+    $con=mysqli_connect("localhost","tcs","krish","gbs");
+    include('connect-mysql.php');
+    $fname=$_POST['fname'];
+    $lname=$_POST['lname'];
+    $emailid=$_POST['emailid'];
+    $empid=$_POST['empid'];
+    $phone=$_POST['phone'];
+    $dob=$_POST['dob'];
+    $password=md5($_POST['password']);
+    if(isset($_POST['isadmin']))
+        {$isadmin=1;
+        }
+    else {
+        $isadmin=0;
+    }
+    $sqlget="SELECT * FROM employees WHERE emp_id='$empid'";
+    $sqldata=mysqli_query($con,$sqlget) or die('error displaying data');
+    $row = mysqli_fetch_array($sqldata,MYSQLI_ASSOC);
+    $rowdata=$row['emp_id'];
+    if($rowdata==NULL) {
+        $sqlinsert="INSERT INTO employees (fname,lname,emp_id,dob,phone,email_id,password,is_admin) VALUES ('$fname','$lname','$empid','$dob','$phone','$emailid','$password','$isadmin')";
+
+if(!mysqli_query($dbcon, $sqlinsert)){
+    die('error');
+}
+header("location:user-registration.php");
+}
+else {
+  $alre="already registered";
+}
+}
+?>
+
+<?php
+if(isset($_POST['login'])){
+    $username=$_POST['username'];
+    $password=md5($_POST['password']);
+    $sql="SELECT * FROM employees WHERE emailid=$username and password=$password";
+    $result = mysqli_query($dbcon,$sql) or die(mysql_error());
+    $numrows = mysql_num_rows($result);
+if($numrows > 0)
+   {
+    http_redirect("location:user-dashboard.php");
+    exit;
+   }
+else
+   {
+    echo 'wrong credentials';
+   }
+}
+?>  
+
+<html lang="en">
+<head>
+  <title>User Registration</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        
+        <li><a href="user-registration.html"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a>
+</li>
+</ul>
+      <form action="user-dashboard.php" method="post">
+      <ul class="nav navbar-nav navbar-right" style="padding-top: 5px;">
+      <li style="padding-right: 10px;"><input type="email" name="username" value="email id" class="form-control" onfocus="if(this.value='email id'){ this.value='';}"></li>
+      <li style="padding-right: 10px;"><input type="password" name="password" value="password" class="form-control" onfocus="if(this.value='password'){ this.value='';}"></li>
+     <a href="user-dashboard.php"><li style="padding-right: 10px;"><input type="submit" name="Login" value="login" class="btn btn-primary"></li></a>
+	   
+	  
+      <li><a href="forget.html" style="padding-bottom: 10px;">Forgot Password</a></li>
+      </ul>
+      </form>
+    </div>
+  </div>
+</nav>
+
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+  <div class="col-sm-8 sidenav">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 20%;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="images/cricket.jpg" alt="cricket">
+    </div>
+
+    <div class="item">
+      <img src="images/table-tennis.jpg" alt="table-tennis">
+    </div>
+
+    <div class="item">
+      <img src="images/football.jpg" alt="football">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+    </div>
+    <div class="col-sm-4 text-left"> 
+      <br/><b>Fill In The Details</b>
+      <form method="post" action="user-registration.php">
+      <input type="hidden" name="submitted" value="true">
+  <div class="form-group">
+    <br/>
+    First Name<input type="text" class="form-control" id="fname" value="first name" name="fname" onfocus="if(this.value=='first name'){ this.value='';}">
+  </div>
+  <div class="form-group">
+    Last Name<input type="text" class="form-control" id="lname" value="last name" name="lname" onfocus="if(this.value=='last name'){ this.value='';}">
+  </div>
+  <div class="form-group">
+    Employee Id:<input type="text" class="form-control" id="empid" value="employee id" name="empid" onfocus="if(this.value=='employee id'){ this.value='';}">
+    <?php
+echo $alre;
+?>
+  </div>
+  <div class="form-group">
+    Phone Number<input type="number" class="form-control" id="pwd" value="phone number" name="phone">
+  </div>
+  <div class="form-group">
+    Email Id<input type="email" class="form-control" id="pwd" value="email id" name="emailid" onfocus="if(this.value=='email id'){ this.value='';}">
+  </div>
+  <div class="form-group">
+    Date Of Birth<input type="date" class="form-control" id="pwd" value="date of birth" name="dob">
+  <div class="form-group">
+  </div>
+    Password<input type="password" class="form-control" id="pwd" value="password" name="password" onfocus="if(this.value=='password'){ this.value='';}">
+  </div>
+  <div class="form-group">
+    Confirm Password<input type="password" class="form-control" id="pwd" value="password" onfocus="if(this.value=='password'){ this.value='';}">
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox" name="isadmin">Admin</label>
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox" name="terms">I agree To The <a href="#"> Terms &amp; Conditions</a></label>
+  </div>
+ <a href="user-registration.html"> <button type="submit" class="btn btn-primary" style="">Submit</button></a>
+</form>
+
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center" style="margin-top: 20px;"><br/>
+  <p></p>
+</footer>
+
+</body>
+</html>
